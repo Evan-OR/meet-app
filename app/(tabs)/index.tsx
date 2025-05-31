@@ -1,8 +1,26 @@
 import ProfileDisplay from '@/components/ProfileDisplay';
 import { ThemedView } from '@/components/ThemedView';
+import { useEffect } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 
+import * as Location from 'expo-location';
+
 export default function HomeScreen() {
+  useEffect(() => {
+    async function getCurrentLocation() {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.log('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      console.log('Location: ', location);
+    }
+
+    getCurrentLocation();
+  }, []);
+
   return (
     <ThemedView style={styles.container}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
