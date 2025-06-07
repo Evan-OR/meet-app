@@ -22,7 +22,7 @@ const ProfilePage = () => {
     <ThemedView style={styles.container}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <ProfileDisplay
-          name={formattedUserData?.name!}
+          name={formattedUserData?.first_name!}
           age={formattedUserData?.age!}
           city="Dublin"
           job={formattedUserData?.job!}
