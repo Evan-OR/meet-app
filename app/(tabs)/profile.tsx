@@ -1,21 +1,42 @@
 import ProfileDisplay from '@/components/ProfileDisplay';
 import { ThemedView } from '@/components/ThemedView';
+import useIsLoggedIn from '@/hooks/useIsLoggedIn';
+import useUser from '@/hooks/useUser';
+import { deleteAuthTokenFromSecureStore, deleteUserDataFromStorage } from '@/lib/storage';
+import { formatUserData } from '@/lib/user';
+import { Redirect } from 'expo-router';
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { Button, ScrollView, StyleSheet } from 'react-native';
 
 const ProfilePage = () => {
+  // YEAH IDK WHATS HAPPENING THIS SHOULD BE DONE DIFFERENT 4 SURE. Causes error idk why, should be done with a hook or some shit?
+  const isLoggedIn = useIsLoggedIn();
+  if (!isLoggedIn) {
+    return <Redirect href={'/auth'} />;
+  }
+
+  const { user, setUser } = useUser();
+  const formattedUserData = user ? formatUserData(user) : null;
+
   return (
     <ThemedView style={styles.container}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <ProfileDisplay
-          name="Jeremy"
-          age={62}
-          city="Dollhouse"
-          job="Literal Psychopath"
+          name={formattedUserData?.name!}
+          age={formattedUserData?.age!}
+          city="Dublin"
+          job={formattedUserData?.job!}
           interests={["Being 1 guy'd", 'Dollhouses', 'Clowns', 'Rats', 'Cooking']}
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ultrices semper urna, nec interdum ante laoreet
-            eget."
+          description={formattedUserData?.description!}
           isLoggedInUserProfile
+        />
+        <Button
+          onPress={async () => {
+            await deleteAuthTokenFromSecureStore();
+            await deleteUserDataFromStorage();
+            setUser(null);
+          }}
+          title={'Sign Out'}
         />
       </ScrollView>
     </ThemedView>
@@ -25,6 +46,7 @@ const ProfilePage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingBottom: 100,
   },
 });
 

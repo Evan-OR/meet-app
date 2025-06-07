@@ -3,9 +3,12 @@ import { ThemedView } from '@/components/ThemedView';
 import { useEffect } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 
+import useIsLoggedIn from '@/hooks/useIsLoggedIn';
 import * as Location from 'expo-location';
 
 export default function HomeScreen() {
+  const isLoggedIn = useIsLoggedIn();
+
   useEffect(() => {
     async function getCurrentLocation() {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -20,6 +23,10 @@ export default function HomeScreen() {
 
     getCurrentLocation();
   }, []);
+
+  useEffect(() => {
+    console.log(isLoggedIn);
+  });
 
   return (
     <ThemedView style={styles.container}>

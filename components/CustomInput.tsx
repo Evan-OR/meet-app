@@ -1,18 +1,30 @@
 import { Colors } from '@/constants/Colors';
-import { StyleSheet, TextInput, View } from 'react-native';
+import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
+
+type TextContentType = TextInputProps['textContentType'];
 
 type CustomInputProps = {
   value: string;
   placeholder: string;
   setValue: (newValue: string) => void;
   isMultiline?: boolean;
+  isPassword?: boolean;
+  textContentType?: TextContentType;
 };
 
-const CustomInput = ({ value, placeholder, isMultiline = false, setValue }: CustomInputProps) => {
+const CustomInput = ({
+  value,
+  placeholder,
+  isMultiline = false,
+  isPassword = false,
+  textContentType = 'none',
+  setValue,
+}: CustomInputProps) => {
   return (
     <View style={styles.customInputWrapper}>
-      {/* <ThemedText>Name</ThemedText> */}
       <TextInput
+        textContentType={textContentType}
+        secureTextEntry={isPassword}
         multiline={isMultiline}
         style={styles.input}
         placeholderTextColor={Colors.light.icon}
@@ -33,8 +45,8 @@ const styles = StyleSheet.create({
   input: {
     flexGrow: 1,
     fontSize: 16,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
     borderStyle: 'solid',
     borderWidth: 2,
     borderRadius: 4,

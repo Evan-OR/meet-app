@@ -6,8 +6,11 @@ import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
+import useIsLoggedIn from '@/hooks/useIsLoggedIn';
 
 export default function TabLayout() {
+  const isLoggedIn = useIsLoggedIn();
+
   return (
     <Tabs
       screenOptions={{
@@ -32,10 +35,19 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="auth"
+        options={{
+          title: 'Sign In',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />,
+          ...(isLoggedIn && { href: null }),
+        }}
+      />
+      <Tabs.Screen
         name="profile"
         options={{
           title: 'Profile',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />,
+          ...(!isLoggedIn && { href: null }),
         }}
       />
     </Tabs>
