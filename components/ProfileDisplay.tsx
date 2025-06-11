@@ -1,8 +1,7 @@
 import { Colors, PastelColors } from '@/constants/Colors';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { useState } from 'react';
-import { Dimensions, Image, Modal, Pressable, StyleSheet, View } from 'react-native';
-import EditProfileModal from './EditProfileModal';
+import { router } from 'expo-router';
+import { Dimensions, Image, Pressable, StyleSheet, View } from 'react-native';
 import IconWithText from './IconWithText';
 import { ThemedText } from './ThemedText';
 import Chip from './ui/Chip';
@@ -30,12 +29,10 @@ const ProfileDisplay = ({
   interests,
   isLoggedInUserProfile = false,
 }: ProfileDisplayProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-
   const getRandomColor = () => PastelColors[Math.floor(Math.random() * PastelColors.length)];
 
   const toggleModal = () => {
-    setIsOpen((prev) => !prev);
+    router.replace('/setup');
   };
 
   return (
@@ -54,17 +51,6 @@ const ProfileDisplay = ({
             {isLoggedInUserProfile && (
               <Pressable onPress={toggleModal}>
                 <FontAwesome style={{ marginTop: 7 }} name="edit" size={32} color={Colors.light.icon} />
-                <Modal visible={isOpen} animationType="slide" presentationStyle="pageSheet">
-                  <EditProfileModal
-                    toggleModal={toggleModal}
-                    name={name}
-                    age={age}
-                    city={city}
-                    job={job}
-                    interests={interests}
-                    description={description}
-                  />
-                </Modal>
               </Pressable>
             )}
           </View>

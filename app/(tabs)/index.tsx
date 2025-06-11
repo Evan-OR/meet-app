@@ -33,7 +33,7 @@ export default function HomeScreen() {
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <ProfileDisplay
           name="Ana De Armas"
-          age={24}
+          age={37}
           city="California"
           job="Actor"
           description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ultrices semper urna, nec interdum ante laoreet

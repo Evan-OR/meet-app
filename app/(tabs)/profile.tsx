@@ -9,7 +9,6 @@ import React from 'react';
 import { Button, ScrollView, StyleSheet } from 'react-native';
 
 const ProfilePage = () => {
-  // YEAH IDK WHATS HAPPENING THIS SHOULD BE DONE DIFFERENT 4 SURE. Causes error idk why, should be done with a hook or some shit?
   const isLoggedIn = useIsLoggedIn();
   if (!isLoggedIn) {
     return <Redirect href={'/auth'} />;
@@ -22,7 +21,7 @@ const ProfilePage = () => {
     <ThemedView style={styles.container}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <ProfileDisplay
-          name={formattedUserData?.first_name!}
+          name={formattedUserData?.display_name!}
           age={formattedUserData?.age!}
           city="Dublin"
           job={formattedUserData?.job!}

@@ -50,6 +50,15 @@ export default function TabLayout() {
           ...(!isLoggedIn && { href: null }),
         }}
       />
+      <Tabs.Screen
+        name="setup"
+        options={{
+          title: 'Setup',
+          href: null,
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />,
+          ...(!isLoggedIn && { href: null }),
+        }}
+      />
     </Tabs>
   );
 }

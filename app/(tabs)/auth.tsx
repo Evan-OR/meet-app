@@ -90,7 +90,7 @@ const auth = () => {
       await setAuthTokenInSecureStore(authToken);
       await setUserDataInStorage(userData);
       setUser(userData);
-      router.replace('/profile');
+      router.replace('/setup');
 
       console.log(authToken);
       console.log(userData);
